@@ -19,6 +19,7 @@ Let's start
   - [Verification that the Data Represents a Time Series](#verification-that-the-data-represents-a-time-series)
   - [Plotting a Time Series Graph](#plotting-a-time-series-graph)
   - [Basic Time Series Analysis](#basic-time-series-analysis)
+  - [Plotting the Correlogram (Autocorrelation Function, ACF)](#Plotting the correlogram (Autocorrelation Function, ACF))
 
 ## Dataset Selection
 
@@ -99,7 +100,7 @@ axis(1, at = year_positions, labels = year_positions)
 
 ### Basic Time Series Analysis
 
-**Is there a trend in this series? If so, what kind?**
+**a) Is there a trend in this series? If so, what kind?**
 
 ```r
 decomp <- stl(msft_ts, s.window = "periodic")
@@ -115,7 +116,7 @@ plot(decomp$time.series[, "trend"], type = "l",
 
 When analyzing the time series for the period 2015–2021, it is evident that the closing price (`Close`) shows a clear long-term upward movement. This indicates the presence of an upward trend.
 
-**Are seasonal variations characteristic of this series?**
+**b) Are seasonal variations characteristic of this series?**
 
 ```r
 plot(decomp, main = "STL Microsoft Stock Price")
@@ -127,11 +128,68 @@ plot(decomp, main = "STL Microsoft Stock Price")
 
 At first glance, it may seem that seasonal variations are absent. However, applying the STL function allowed us to decompose the time series into separate components and reveal the presence of seasonality. Additionally, the graph highlights the following components: trend, seasonal component, and residual component.
 
-**Are there any cycles present in the series?**
+**c) Are there any cycles present in the series?**
 
 As seen from the graph, there are no strict cyclical patterns; if any fluctuations exist, they appear to be random.
 
-**Does the variance change over time?**
+**d) Does the variance change over time?**
 
 To assess changes in variance over time, a 63-day rolling standard deviation was calculated for Microsoft’s closing price. The rolling standard deviation plot allows us to evaluate the series’ volatility over time.
+
+```r
+library(zoo)
+
+rolling_sd <- rollapply(stock$Close, width = 63, FUN = sd, fill = NA)
+
+plot(stock$Date, rolling_sd, type="l", col="purple", lwd=2,
+     main="Rolling Standard Deviation of Microsoft Stock",
+     xlab="Date", ylab="SD (63 days)")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Rolling-Standard-Deviation-of-Microsoft-Stock.png" width="1200" height="700"> 
+
+The results show that the variance is not constant: there are periods of relative calm with low volatility, as well as periods of increased price fluctuations. This indicates the presence of heteroskedasticity, meaning that the series’ variance changes over time.
+
+**e) What can be said about the stationarity of this time series? Justify your answer**
+
+By definition, a time series is stationary if its statistical properties do not change over time. That is, the mean is constant, the variance is constant, and the autocovariance depends only on the lag between observations.
+
+As seen from the graph, this time series is non-stationary because both the mean and variance change over time. To confirm this, we can perform the ADF and KPSS tests:
+
+- **ADF (Augmented Dickey-Fuller) test:** the null hypothesis assumes that the series has a unit root (i.e., is non-stationary).
+- **KPSS (Kwiatkowski–Phillips–Schmidt–Shin) test:** the null hypothesis assumes that the series is stationary.
+
+```r
+library(tseries)
+
+print(adf.test(msft_ts))
+print(kpss.test(msft_ts))
+```
+
+**Result**
+
+```
+## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  msft_ts
+## Dickey-Fuller = -1.6209, Lag order = 11, p-value = 0.7388
+## alternative hypothesis: stationary
+
+## 
+##  KPSS Test for Level Stationarity
+## 
+## data:  msft_ts
+## KPSS Level = 17.308, Truncation lag parameter = 7, p-value = 0.01
+```
+
+**Interpretation of the results:**
+
+**ADF test:** This test showed a $\text{p-value} > 0.05$, so we fail to reject $H_0$. As a result, the series is considered non-stationary.
+
+**KPSS test:** This test showed a $\text{p-value} < 0.05$, so we reject $H_0$. Consequently, the series is also considered non-stationary.
+
+## Plotting the Correlogram (Autocorrelation Function, ACF)
 
