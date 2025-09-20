@@ -94,4 +94,6 @@ axis(1, at = year_positions, labels = year_positions)
 
 **Result**
 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Microsoft-Stock-Time-Series-Analysis.png" width="800" height="600"> 
+
 
