@@ -13,11 +13,13 @@ The main goal is to preprocess the Microsoft stock time series and prepare it fo
 Let's start
 
 ## Table of Contents
-- [1 Dataset Selection](#1-dataset-selection)
+- [Dataset Selection](#dataset-selection)
 - [Visualization and Exploratory Analysis](#visualization-and-exploratory-analysis)
-  - [Import data in R](#import-data-in-r)  
+  - [Import data in R](#import-data-in-r)
+  - [Verification that the Data Represents a Time Series](#verification-that-the-data-represents-a-time-series)
+  - [Plotting a Time Series Graph](#plotting-a-time-series-graph)
 
-## 1 Dataset Selection
+## Dataset Selection
 
 When selecting a dataset for time series analysis and forecasting, several criteria should be considered:
 - **Time coverage** - the dataset should span multiple years to capture long-term trends, seasonal effects, and possible structural changes.
@@ -33,3 +35,63 @@ Link to the dataset: [click here](https://www.kaggle.com/datasets/vijayvvenkites
 ## Visualization and Exploratory Analysis
 
 ### Import data in R
+
+Let's take a look at the general structure of the loaded dataset. We will convert the Date column into date format using the as.Date() function
+
+```r
+stock <- read.csv("Microsoft_Stock.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+stock$Date <- as.Date(stock$Date, tryFormats = c("%Y-%m-%d", "%m/%d/%Y", "%d.%m.%Y"))
+
+print(head(stock))
+```
+
+**Result**
+
+```
+##         Date  Open  High   Low Close   Volume
+## 1 2015-04-01 40.60 40.76 40.31 40.72 36865322
+## 2 2015-04-02 40.66 40.74 40.12 40.29 37487476
+## 3 2015-04-06 40.34 41.78 40.18 41.55 39223692
+## 4 2015-04-07 41.61 41.91 41.31 41.53 28809375
+## 5 2015-04-08 41.48 41.69 41.04 41.42 24753438
+## 6 2015-04-09 41.25 41.62 41.25 41.48 25723861
+```
+
+### Verification that the Data Represents a Time Series
+
+Let's make sure that the data is correctly recognized: the `Date` column should be of type `date`, and the numerical indicators should be of type `integer` or `numeric`
+
+```r
+str(stock)
+```
+
+**Result**
+
+```
+## 'data.frame':    1511 obs. of  6 variables:
+##  $ Date  : Date, format: "2015-04-01" "2015-04-02" ...
+##  $ Open  : num  40.6 40.7 40.3 41.6 41.5 ...
+##  $ High  : num  40.8 40.7 41.8 41.9 41.7 ...
+##  $ Low   : num  40.3 40.1 40.2 41.3 41 ...
+##  $ Close : num  40.7 40.3 41.5 41.5 41.4 ...
+##  $ Volume: int  36865322 37487476 39223692 28809375 24753438 25723861 28022002 30276692 24244382 27343581 ...
+```
+
+### Plotting a Time Series Graph
+
+Let's plot the changes in the closing price (`Close`) over time
+
+```r
+msft_ts <- ts(stock$Close, frequency = 252, start = c(2015, 1))
+plot(msft_ts, type = "l",
+     main = "Microsoft Stock Price Over Time",
+     ylab = "Closing Price", xlab = "Date", xaxt = "n")
+
+time_values <- time(msft_ts)
+year_positions <- seq(2015, 2021, by = 1)
+axis(1, at = year_positions, labels = year_positions)
+```
+
+**Result**
+
+
