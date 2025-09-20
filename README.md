@@ -13,11 +13,11 @@ The main goal is to preprocess the Microsoft stock time series and prepare it fo
 Let's start
 
 ## Table of Contents
-- [Dataset Selection](#dataset-selection)
+- [1 Dataset Selection](#1-dataset-selection)
 - [Visualization and Exploratory Analysis](#visualization-and-exploratory-analysis)
   - [Import data in R](#import-data-in-r)  
 
-## Dataset Selection
+## 1 Dataset Selection
 
 When selecting a dataset for time series analysis and forecasting, several criteria should be considered:
 - **Time coverage** - the dataset should span multiple years to capture long-term trends, seasonal effects, and possible structural changes.
