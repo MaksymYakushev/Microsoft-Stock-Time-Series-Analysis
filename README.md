@@ -18,6 +18,7 @@ Let's start
   - [Import data in R](#import-data-in-r)
   - [Verification that the Data Represents a Time Series](#verification-that-the-data-represents-a-time-series)
   - [Plotting a Time Series Graph](#plotting-a-time-series-graph)
+  - [Basic Time Series Analysis](#basic-time-series-analysis)
 
 ## Dataset Selection
 
@@ -94,6 +95,43 @@ axis(1, at = year_positions, labels = year_positions)
 
 **Result**
 
-<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Microsoft-Stock-Time-Series-Analysis.png" width="800" height="600"> 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Microsoft-Stock-Price-Over-Time.png" width="1200" height="700"> 
 
+### Basic Time Series Analysis
+
+**Is there a trend in this series? If so, what kind?**
+
+```r
+decomp <- stl(msft_ts, s.window = "periodic")
+
+plot(decomp$time.series[, "trend"], type = "l",
+     main = "Trend Microsoft Stock Price",
+     ylab = "Closing Price", xlab = "Date")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Trend-Microsoft-Stock-Price.png" width="1200" height="700"> 
+
+When analyzing the time series for the period 2015–2021, it is evident that the closing price (`Close`) shows a clear long-term upward movement. This indicates the presence of an upward trend.
+
+**Are seasonal variations characteristic of this series?**
+
+```r
+plot(decomp, main = "STL Microsoft Stock Price")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/STL-Microsoft-Stock-Price.png" width="1200" height="700"> 
+
+At first glance, it may seem that seasonal variations are absent. However, applying the STL function allowed us to decompose the time series into separate components and reveal the presence of seasonality. Additionally, the graph highlights the following components: trend, seasonal component, and residual component.
+
+**Are there any cycles present in the series?**
+
+As seen from the graph, there are no strict cyclical patterns; if any fluctuations exist, they appear to be random.
+
+**Does the variance change over time?**
+
+To assess changes in variance over time, a 63-day rolling standard deviation was calculated for Microsoft’s closing price. The rolling standard deviation plot allows us to evaluate the series’ volatility over time.
 
