@@ -19,7 +19,7 @@ Let's start
   - [Verification that the Data Represents a Time Series](#verification-that-the-data-represents-a-time-series)
   - [Plotting a Time Series Graph](#plotting-a-time-series-graph)
   - [Basic Time Series Analysis](#basic-time-series-analysis)
-  - [Plotting the Correlogram (Autocorrelation Function, ACF)](#Plotting the correlogram (Autocorrelation Function, ACF))
+  - [Plotting the Correlogram (Autocorrelation Function, ACF)](##plotting-the-correlogram-autocorrelation-function-acf)
 
 ## Dataset Selection
 
@@ -192,4 +192,25 @@ print(kpss.test(msft_ts))
 **KPSS test:** This test showed a $\text{p-value} < 0.05$, so we reject $H_0$. Consequently, the series is also considered non-stationary.
 
 ## Plotting the Correlogram (Autocorrelation Function, ACF)
+
+For this part of the work, we need to answer the following questions:
+
+- What conclusions can be drawn?
+- Do the assumptions from the previous section hold?
+
+Thus, the ACF analysis supports the conclusion that the series is non-stationary and exhibits long-term dependence.
+
+```r
+acf(msft_ts,lag.max = 24, main = "ACF")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/ACF.png" width="1200" height="700"> 
+
+**Interpretation of the results:**
+
+The values of the autocorrelation function decrease slowly and remain high even at larger lags. Moreover, the values go beyond the confidence intervals. This confirms that the series is non-stationary. Therefore, the assumption from the previous section is validated.
+
+
 
