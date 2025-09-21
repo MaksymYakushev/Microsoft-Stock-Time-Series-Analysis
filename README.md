@@ -19,7 +19,7 @@ Let's start
   - [Verification that the Data Represents a Time Series](#verification-that-the-data-represents-a-time-series)
   - [Plotting a Time Series Graph](#plotting-a-time-series-graph)
   - [Basic Time Series Analysis](#basic-time-series-analysis)
-  - [Plotting the Correlogram (Autocorrelation Function, ACF)](##plotting-the-correlogram-autocorrelation-function-acf)
+  - [Plotting the Correlogram (Autocorrelation Function, ACF)](#plotting-the-correlogram-or-autocorrelation-function)
 
 ## Dataset Selection
 
@@ -191,7 +191,7 @@ print(kpss.test(msft_ts))
 
 **KPSS test:** This test showed a $\text{p-value} < 0.05$, so we reject $H_0$. Consequently, the series is also considered non-stationary.
 
-## Plotting the Correlogram (Autocorrelation Function, ACF)
+## Plotting the Correlogram or Autocorrelation Function
 
 For this part of the work, we need to answer the following questions:
 
@@ -211,6 +211,20 @@ acf(msft_ts,lag.max = 24, main = "ACF")
 **Interpretation of the results:**
 
 The values of the autocorrelation function decrease slowly and remain high even at larger lags. Moreover, the values go beyond the confidence intervals. This confirms that the series is non-stationary. Therefore, the assumption from the previous section is validated.
+
+## Plotting the Partial Autocorrelation Function
+
+To analyze the dependency structure in the time series, we will construct a Partial Autocorrelation Function (PACF) plot and interpret the obtained results.
+
+```r
+pacf(msft_ts, lag.max = 24, main = "PACF")
+```
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/PACF.png" width="1200" height="700"> 
+
+**Interpretation of the results:**
+
+The values of the Partial Autocorrelation Function indicate a first-order autoregressive process (AR(1)). Only the first lag is significant, which means that each observation depends solely on the previous value, not on more distant past values.
 
 
 
