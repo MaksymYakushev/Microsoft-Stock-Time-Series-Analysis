@@ -187,7 +187,7 @@ print(kpss.test(msft_ts))
 ## KPSS Level = 17.308, Truncation lag parameter = 7, p-value = 0.01
 ```
 
-**Interpretation of the results:**
+**Interpretation of the results**
 
 **ADF test:** This test showed a $\text{p-value} > 0.05$, so we fail to reject $H_0$. As a result, the series is considered non-stationary.
 
@@ -210,7 +210,7 @@ acf(msft_ts,lag.max = 24, main = "ACF")
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/ACF.png" width="1200" height="700"> 
 
-**Interpretation of the results:**
+**Interpretation of the results**
 
 The values of the autocorrelation function decrease slowly and remain high even at larger lags. Moreover, the values go beyond the confidence intervals. This confirms that the series is non-stationary. Therefore, the assumption from the previous section is validated.
 
@@ -222,13 +222,77 @@ To analyze the dependency structure in the time series, we will construct a Part
 pacf(msft_ts, lag.max = 24, main = "PACF")
 ```
 
+**Result**
+
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/PACF.png" width="1200" height="700"> 
 
-**Interpretation of the results:**
+**Interpretation of the results**
 
 The values of the Partial Autocorrelation Function indicate a first-order autoregressive process (AR(1)). Only the first lag is significant, which means that each observation depends solely on the previous value, not on more distant past values.
 
 ## Building and analyzing the first-differenced series of the original data, plotting and correlogram
+
+To remove the trend and examine the properties of the residuals, the first-differenced series was builded
+
+```r
+diff_data <- diff(msft_ts) 
+
+plot(diff_data, type = "l", col = "blue", lwd = 1.5,
+     main = "(diff) of Microsoft Close",
+     ylab = "diff(Close)", xlab = "Date")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Diff-of-Microsoft-Close.png" width="1200" height="700"> 
+
+In the plot, it can be seen that the fluctuations have become more balanced, and the clear upward trend present in the original series has disappeared. Next, we will test the series for stationarity and apply the previous tests
+
+```r
+print(adf.test(diff_data))
+print(kpss.test(diff_data))
+```
+
+**Result**
+
+```
+## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  diff_data
+## Dickey-Fuller = -11.873, Lag order = 11, p-value = 0.01
+## alternative hypothesis: stationary
+
+## 
+##  KPSS Test for Level Stationarity
+## 
+## data:  diff_data
+## KPSS Level = 0.25056, Truncation lag parameter = 7, p-value = 0.1
+```
+
+**Interpretation of the results**
+
+**ADF test**. This test showed that $p-value < 0.05$, therefore we reject $H_0$. As a result, the series is stationary.
+
+**KPSS test**. This test showed that $p-value > 0.05$, therefore we fail to reject $H_0$. As a result, the series is stationary.
+
+Next, we will plot the ACF
+
+```r
+acf(diff_data,lag.max = 24, main = "ACF after first diff")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/ACF-after-first-diff.png" width="1200" height="700"> 
+
+**Interpretation of the results**
+
+
+
+
+
+
 
 
 
