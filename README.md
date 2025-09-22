@@ -101,7 +101,7 @@ axis(1, at = year_positions, labels = year_positions)
 
 **Result**
 
-<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Microsoft-Stock-Price-Over-Time.png" width="1200" height="700"> 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Microsoft-Stock-Price-Over-Time.png" width="700" height="500"> 
 
 ### Basic Time Series Analysis
 
@@ -117,7 +117,7 @@ plot(decomp$time.series[, "trend"], type = "l",
 
 **Result**
 
-<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Trend-Microsoft-Stock-Price.png" width="1200" height="700"> 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Trend-Microsoft-Stock-Price.png" width="700" height="500"> 
 
 When analyzing the time series for the period 2015–2021, it is evident that the closing price (`Close`) shows a clear long-term upward movement. This indicates the presence of an upward trend.
 
@@ -129,7 +129,7 @@ plot(decomp, main = "STL Microsoft Stock Price")
 
 **Result**
 
-<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/STL-Microsoft-Stock-Price.png" width="1200" height="700"> 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/STL-Microsoft-Stock-Price.png" width="700" height="500"> 
 
 At first glance, it may seem that seasonal variations are absent. However, applying the STL function allowed us to decompose the time series into separate components and reveal the presence of seasonality. Additionally, the graph highlights the following components: trend, seasonal component, and residual component.
 
@@ -153,7 +153,7 @@ plot(stock$Date, rolling_sd, type="l", col="purple", lwd=2,
 
 **Result**
 
-<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Rolling-Standard-Deviation-of-Microsoft-Stock.png" width="1200" height="700"> 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Rolling-Standard-Deviation-of-Microsoft-Stock.png" width="700" height="500"> 
 
 The results show that the variance is not constant: there are periods of relative calm with low volatility, as well as periods of increased price fluctuations. This indicates the presence of heteroskedasticity, meaning that the series’ variance changes over time.
 
@@ -211,7 +211,7 @@ acf(msft_ts,lag.max = 24, main = "ACF")
 
 **Result**
 
-<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/ACF.png" width="1200" height="700"> 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/ACF.png" width="700" height="500"> 
 
 **Interpretation of the results**
 
@@ -227,7 +227,7 @@ pacf(msft_ts, lag.max = 24, main = "PACF")
 
 **Result**
 
-<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/PACF.png" width="1200" height="700"> 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/PACF.png" width="700" height="500"> 
 
 **Interpretation of the results**
 
@@ -247,7 +247,7 @@ plot(diff_data, type = "l", col = "blue", lwd = 1.5,
 
 **Result**
 
-<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Diff-of-Microsoft-Close.png" width="1200" height="700"> 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Diff-of-Microsoft-Close.png" width="700" height="500"> 
 
 In the plot, it can be seen that the fluctuations have become more balanced, and the clear upward trend present in the original series has disappeared. Next, we will test the series for stationarity and apply the previous tests
 
@@ -287,7 +287,7 @@ acf(diff_data,lag.max = 24, main = "ACF after first diff")
 
 **Result**
 
-<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/ACF-after-first-diff.png" width="1200" height="700"> 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/ACF-after-first-diff.png" width="700" height="500"> 
 
 **Interpretation of the results**
 
@@ -299,7 +299,7 @@ pacf(diff_data,lag.max = 24, main = "PACF after first diff")
 
 **Result**
 
-<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/PACF-after-first-diff.png" width="1200" height="700"> 
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/PACF-after-first-diff.png" width="700" height="500"> 
 
 **Interpretation of the results**
 
@@ -321,6 +321,17 @@ plot(log_data, main = "Log-transformed Microsoft Close")
 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Log-transformed-Microsoft-Close.png" width="700" height="500"> 
+
+Next, we have to plot the ACF
+
+```r
+acf(log_data, lag.max = 24, main = "ACF")
+```
+
+**Result**
+
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Log-transformed-ACF.png" width="700" height="500"> 
 
 
 
