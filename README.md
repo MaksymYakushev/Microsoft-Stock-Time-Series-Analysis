@@ -16,6 +16,14 @@ This project contains time series analysis and forecasting of Microsoft (MSFT) s
 
 The main goal is to preprocess the Microsoft stock time series and prepare it for building forecasting models.
 
+**Usefull links:**
+
+.rmd project: [click here](https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/lab1.rmd)
+
+.html project: [click here](https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/lab1.html)
+
+.csv dataset: [click here](https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Microsoft_Stock.csv)
+
 ## Table of Contents
 - [Dataset Selection](#dataset-selection)
 - [Visualization and Exploratory Analysis](#visualization-and-exploratory-analysis)
@@ -35,14 +43,7 @@ The main goal is to preprocess the Microsoft stock time series and prepare it fo
 
 ## Dataset Selection
 
-When selecting a dataset for time series analysis and forecasting, several criteria should be considered:
-- **Time coverage** - the dataset should span multiple years to capture long-term trends, seasonal effects, and possible structural changes.
-- **Frequency of observations**  - daily or higher-frequency data provides sufficient granularity for detecting short-term dynamics, while still allowing for aggregation into longer intervals if needed.
-- **Completeness and consistency** - the dataset should have minimal missing values, consistent formatting of timestamps, and properly aligned variables.
-- **Relevant variables** - for stock analysis, the dataset should include key financial indicators such as Open, High, Low, Close prices, and trading Volume. These variables enable both univariate and multivariate modeling.
-- **Volatility and variability** - the dataset should exhibit noticeable fluctuations over time, since stationary and non-stationary properties are essential for testing transformations and forecasting models.
-
-By meeting these criteria, the dataset becomes suitable for applying time series methods such as decomposition, stationarity testing, correlation analysis, and forecasting. As result I got it.
+When selecting a dataset for time series analysis, it is important to ensure sufficient time coverage, appropriate frequency of observations, data consistency, and the presence of relevant variables. Such datasets allow for testing stationarity, applying transformations, and building forecasting models.
 
 Link to the dataset: [click here](https://www.kaggle.com/datasets/vijayvvenkitesh/microsoft-stock-time-series-analysis)
 
