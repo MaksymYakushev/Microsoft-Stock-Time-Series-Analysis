@@ -25,6 +25,8 @@ Let's start
   - [Transforming the original series to achieve stationarity and applying additional transformations](#transforming-the-original-series-to-achieve-stationarity-and-applying-additional-transformations)
     - [First Differencing](#first-differencing)
     - [Logarithm Transformation](#logarithm-transformation)
+    - [Seasonal Differencing](#seasonal-differencing)
+    - [Box–Cox Transformation](#box–cox-transformation)
 
 ## Dataset Selection
 
@@ -330,8 +332,69 @@ acf(log_data, lag.max = 24, main = "ACF")
 
 **Result**
 
-
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Log-transformed-ACF.png" width="700" height="500"> 
+
+**Interpretation of the results**
+
+The ACF remains very high at all lags, with no noticeable decay in autocorrelations. All values significantly exceed the confidence intervals. It is clear that the series is non-stationary.
+
+Next, we will plot the PACF
+
+```r
+pacf(log_data, lag.max = 24, main = "PACF")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Log-transformed-PACF.png" width="700" height="500"> 
+
+**Interpretation of the results**
+
+The partial autocorrelation at lag 1 is approximately 1.0 and significantly exceeds the confidence bounds. All subsequent lags fall within the confidence intervals and are close to zero.
+
+### Seasonal Differencing
+
+```r
+diff_season <- diff(msft_ts, lag = 252)
+plot(diff_season, main = "Seasonal Difference")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Seasonal-Difference.png" width="700" height="500"> 
+
+Next, we have to plot the ACF
+
+```r
+acf(diff_season, lag.max = 24, main = "ACF")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Seasonal-Difference-ACF.png" width="700" height="500"> 
+
+**Interpretation of the results**
+
+The autocorrelations remain high and gradually decrease as the lag increases. All ACF values significantly exceed the confidence intervals at all lags. The ACF does not show rapid decay. Seasonal transformation did not eliminate the main issue of the series’ non-stationarity.
+
+
+Next, we will plot the PACF
+
+```r
+pacf(diff_season, lag.max = 24, main = "PACF")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Seasonal-Difference-PACF.png" width="700" height="500"> 
+
+**Interpretation of the results**
+
+The partial autocorrelation at lag 1 is around 1.0 and significantly exceeds the confidence bounds. The high values at the first lags confirm that seasonal differencing did not eliminate the non-stationarity.
+
+### Box–Cox Transformation
+
+
 
 
 
