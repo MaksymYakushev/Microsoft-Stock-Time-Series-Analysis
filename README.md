@@ -27,6 +27,7 @@ Let's start
     - [Logarithm Transformation](#logarithm-transformation)
     - [Seasonal Differencing](#seasonal-differencing)
     - [Box–Cox Transformation](#boxcox-transformation)
+  - [Conclusion](#conclusion)
 
 ## Dataset Selection
 
@@ -393,6 +394,49 @@ pacf(diff_season, lag.max = 24, main = "PACF")
 The partial autocorrelation at lag 1 is around 1.0 and significantly exceeds the confidence bounds. The high values at the first lags confirm that seasonal differencing did not eliminate the non-stationarity.
 
 ### Box–Cox Transformation
+
+```r
+library(forecast)
+
+box_ts <- BoxCox(msft_ts, lambda = 0)
+plot(box_ts, main = "Box–Cox transformation")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Box–Cox-transformation.png" width="700" height="500"> 
+
+Next, we have to plot the ACF
+
+```r
+acf(box_ts, lag.max = 24, main = "ACF")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Box–Cox-transformation-ACF.png" width="700" height="500"> 
+
+**Interpretation of the results**
+
+The autocorrelations remain very high at all lags, showing no noticeable decrease as the lag increases. The Box–Cox transformation did not eliminate the non-stationarity, so ordinary differencing is required.
+
+Next, we will plot the PACF
+
+```r
+pacf(box_ts, lag.max = 24, main = "PACF")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Box–Cox-transformation-PACF.png" width="700" height="500"> 
+
+**Interpretation of the results**
+
+The partial autocorrelation at lag 1 equals 1.0 and exceeds the confidence bounds. All subsequent lags fall within the confidence intervals and are close to zero. The transformation did not affect the trend component of the time series.
+
+# Conclusion
+
+Several transformation methods were tested to achieve stationarity in the time series: differencing, seasonal differencing, logarithm transformation, and Box–Cox transformation. The results showed that only first differencing produced a stationary series. When logarithm transformation, seasonal differencing, or Box–Cox transformation were applied, the series remained non-stationary. Therefore, it can be concluded that for this time series, the most effective transformation method is differencing.
 
 
 
