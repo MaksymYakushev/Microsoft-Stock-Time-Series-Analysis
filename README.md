@@ -26,7 +26,7 @@ Let's start
     - [First Differencing](#first-differencing)
     - [Logarithm Transformation](#logarithm-transformation)
     - [Seasonal Differencing](#seasonal-differencing)
-    - [Box–Cox Transformation](#box–cox-transformation)
+    - [Box–Cox Transformation](#boxcox-transformation)
 
 ## Dataset Selection
 
