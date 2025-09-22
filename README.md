@@ -19,7 +19,9 @@ Let's start
   - [Verification that the Data Represents a Time Series](#verification-that-the-data-represents-a-time-series)
   - [Plotting a Time Series Graph](#plotting-a-time-series-graph)
   - [Basic Time Series Analysis](#basic-time-series-analysis)
-  - [Plotting the Correlogram (Autocorrelation Function, ACF)](#plotting-the-correlogram-or-autocorrelation-function)
+  - [Plotting the Correlogram or Autocorrelation Function](#plotting-the-correlogram-or-autocorrelation-function)
+  - [Plotting the Partial Autocorrelation Function](#plotting-the-partial-autocorrelation-function)
+  - [Building and analyzing the first-differenced series of the original data, plotting and correlogram](#building-and-analyzing-the-first-differenced-series-of-the-original-data-plotting-and-correlogram)
 
 ## Dataset Selection
 
@@ -225,6 +227,8 @@ pacf(msft_ts, lag.max = 24, main = "PACF")
 **Interpretation of the results:**
 
 The values of the Partial Autocorrelation Function indicate a first-order autoregressive process (AR(1)). Only the first lag is significant, which means that each observation depends solely on the previous value, not on more distant past values.
+
+## Building and analyzing the first-differenced series of the original data, plotting and correlogram
 
 
 
