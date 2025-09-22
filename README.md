@@ -22,6 +22,9 @@ Let's start
   - [Plotting the Correlogram or Autocorrelation Function](#plotting-the-correlogram-or-autocorrelation-function)
   - [Plotting the Partial Autocorrelation Function](#plotting-the-partial-autocorrelation-function)
   - [Building and analyzing the first-differenced series of the original data, plotting and correlogram](#building-and-analyzing-the-first-differenced-series-of-the-original-data-plotting-and-correlogram)
+  - [Transforming the original series to achieve stationarity and applying additional transformations](#transforming-the-original-series-to-achieve-stationarity-and-applying-additional-transformations)
+    - [First Differencing](#first-differencing)
+    - [Logarithm Transformation](#logarithm-transformation)
 
 ## Dataset Selection
 
@@ -287,6 +290,47 @@ acf(diff_data,lag.max = 24, main = "ACF after first diff")
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/ACF-after-first-diff.png" width="1200" height="700"> 
 
 **Interpretation of the results**
+
+After the first differencing, we obtained a stationary series without significant autocorrelations, which indicates that long-term dependencies and the trend component were successfully removed. Next, will plot the PACF
+
+```r
+pacf(diff_data,lag.max = 24, main = "PACF after first diff")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/PACF-after-first-diff.png" width="1200" height="700"> 
+
+**Interpretation of the results**
+
+After the first differencing, the series became closer to stationarity. The PACF shows a significant negative correlation at lag 1, while the subsequent values decay quickly and remain within the confidence intervals.
+
+## Transforming the original series to achieve stationarity and applying additional transformations
+
+### First Differencing
+
+After the first differencing, the ADF and KPSS tests confirmed that the series became stationary.
+
+### Logarithm Transformation
+
+```r
+log_data <- log(msft_ts)
+plot(log_data, main = "Log-transformed Microsoft Close")
+```
+
+**Result**
+
+<img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Log-transformed-Microsoft-Close.png" width="700" height="500"> 
+
+
+
+
+
+
+
+
+
+
 
 
 
