@@ -18,6 +18,8 @@ The main goal is to preprocess the Microsoft stock time series and prepare it fo
 
 **Usefull links:**
 
+.r project: [click here](https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/lab1.r)
+
 .rmd project: [click here](https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/lab1.rmd)
 
 .html project: [click here](https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/lab1.html)
