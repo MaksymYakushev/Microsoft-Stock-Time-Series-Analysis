@@ -1,6 +1,12 @@
 # Microsoft Stock Time Series Analysis
 
-This repository contains time series analysis and forecasting of Microsoft (MSFT) stock prices using R. The dataset, obtained from Kaggle, covers the period from April 2015 to April 2021 and includes daily Open, High, Low, Close prices, and trading Volume. The project demonstrates:
+## Introduction
+
+This repository contains a university lab project focused on time series analysis. It also works well as a project for GitHub. This is the first part of the work, serving as the foundation for further extensions. Let's start!!!
+
+## About the Project
+
+This project contains time series analysis and forecasting of Microsoft (MSFT) stock prices using R. The dataset, obtained from Kaggle, covers the period from April 2015 to April 2021 and includes daily Open, High, Low, Close prices, and trading Volume. The project demonstrates:
 
 - Exploratory data analysis and visualization of MSFT stock trends
 - Stationarity testing with ADF and KPSS
@@ -9,8 +15,6 @@ This repository contains time series analysis and forecasting of Microsoft (MSFT
 - Identification of trends, seasonality, and volatility in stock prices
 
 The main goal is to preprocess the Microsoft stock time series and prepare it for building forecasting models.
-
-Let's start
 
 ## Table of Contents
 - [Dataset Selection](#dataset-selection)
