@@ -6,17 +6,17 @@ This repository contains a university lab project focused on time series analysi
 
 ## About the Project
 
-This project contains time series analysis and forecasting of Microsoft (MSFT) stock prices using R. The dataset, obtained from Kaggle, covers the period from April 2015 to April 2021 and includes daily Open, High, Low, Close prices, and trading Volume. The project demonstrates:
+This project contains time series analysis and forecasting of Microsoft (MSFT) stock prices using R. The dataset obtained from Kaggle and covers the period from April 2015 to April 2021 and includes daily Open, High, Low, Close prices and trading Volume. The project demonstrates:
 
 - Exploratory data analysis and visualization of MSFT stock trends
-- Stationarity testing with ADF and KPSS
-- Transformations (differencing, seasonal differencing, logarithmic, Box–Cox)
-- ACF and PACF analysis
 - Identification of trends, seasonality, and volatility in stock prices
+- Stationarity testing with ADF and KPSS
+- ACF and PACF analysis
+- Transformations (differencing, seasonal differencing, logarithmic, Box–Cox)
+  
+🎯 The main goal is to preprocess the Microsoft stock time series and prepare it for building forecasting models.
 
-The main goal is to preprocess the Microsoft stock time series and prepare it for building forecasting models.
-
-**Usefull links:**
+🔗 **Usefull links:**
 
 .r project: [click here](https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/lab1.r)
 
@@ -45,15 +45,15 @@ The main goal is to preprocess the Microsoft stock time series and prepare it fo
 
 ## Dataset Selection
 
-When selecting a dataset for time series analysis, it is important to ensure sufficient time coverage, appropriate frequency of observations, data consistency, and the presence of relevant variables. Such datasets allow for testing stationarity, applying transformations, and building forecasting models.
+When selecting a dataset for time series analysis it is important to ensure sufficient time coverage, appropriate frequency of observations, data consistency and the presence of relevant variables. Such datasets allow for testing stationarity, applying transformations, and building forecasting models.
 
-Link to the dataset: [click here](https://www.kaggle.com/datasets/vijayvvenkitesh/microsoft-stock-time-series-analysis)
+🔗 Link to the original dataset from Kaggle: [click here](https://www.kaggle.com/datasets/vijayvvenkitesh/microsoft-stock-time-series-analysis)
 
 ## Visualization and Exploratory Analysis
 
 ### Import data in R
 
-Let's take a look at the general structure of the loaded dataset. We will convert the Date column into date format using the as.Date() function
+Let's import data in R and take a look at the general structure of the imported dataset. I have converted the Date column into date format using the as.Date() function
 
 ```r
 stock <- read.csv("Microsoft_Stock.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
@@ -62,7 +62,7 @@ stock$Date <- as.Date(stock$Date, tryFormats = c("%Y-%m-%d", "%m/%d/%Y", "%d.%m.
 print(head(stock))
 ```
 
-**Result**
+📊 **Result**
 
 ```
 ##         Date  Open  High   Low Close   Volume
@@ -76,7 +76,7 @@ print(head(stock))
 
 ### Verification that the Data Represents a Time Series
 
-Let's make sure that the data is correctly recognized: the `Date` column should be of type `date`, and the numerical indicators should be of type `integer` or `numeric`
+In order to ensure the correctness of data recognition the **Date** column should be of type `Date` while the numerical indicators should be of type `integer`, `numeric` or any other appropriate data type representing numerical values
 
 ```r
 str(stock)
