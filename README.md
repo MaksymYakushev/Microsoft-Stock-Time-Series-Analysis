@@ -249,7 +249,7 @@ The values of the Partial Autocorrelation Function (PACF) indicate a first-order
 
 ## Building and analyzing the first-differenced series of the original data, plotting and correlogram
 
-To remove the trend and examine the properties of the residuals, the first-differenced series was builded
+To remove the trend and examine the properties of the residuals we have to build the first-differenced series
 
 ```r
 diff_data <- diff(msft_ts) 
@@ -259,18 +259,18 @@ plot(diff_data, type = "l", col = "blue", lwd = 1.5,
      ylab = "diff(Close)", xlab = "Date")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Diff-of-Microsoft-Close.png" width="700" height="500"> 
 
-In the plot, it can be seen that the fluctuations have become more balanced, and the clear upward trend present in the original series has disappeared. Next, we will test the series for stationarity and apply the previous tests
+In the plot it can be seen that the fluctuations have become more balanced, and the clear upward trend present in the original series has disappeared. Next, we will test the series for stationarity and apply the previous tests
 
 ```r
 print(adf.test(diff_data))
 print(kpss.test(diff_data))
 ```
 
-**Result**
+📊 **Result**
 
 ```
 ## 
@@ -287,43 +287,43 @@ print(kpss.test(diff_data))
 ## KPSS Level = 0.25056, Truncation lag parameter = 7, p-value = 0.1
 ```
 
-**Interpretation of the results**
+✍🏻 **Interpretation of the results**
 
 **ADF test**. This test showed that $p-value < 0.05$, therefore we reject $H_0$. As a result, the series is stationary.
 
 **KPSS test**. This test showed that $p-value > 0.05$, therefore we fail to reject $H_0$. As a result, the series is stationary.
 
-Next, we will plot the ACF
+Next, we have to plot the ACF
 
 ```r
 acf(diff_data,lag.max = 24, main = "ACF after first diff")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/ACF-after-first-diff.png" width="700" height="500"> 
 
-**Interpretation of the results**
+✍🏻 **Interpretation of the results**
 
-After the first differencing, we obtained a stationary series without significant autocorrelations, which indicates that long-term dependencies and the trend component were successfully removed. Next, will plot the PACF
+After the first differencing we obtained a stationary series without significant autocorrelations which indicates that long-term dependencies and the trend component were successfully removed. Next, will plot the PACF
 
 ```r
 pacf(diff_data,lag.max = 24, main = "PACF after first diff")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/PACF-after-first-diff.png" width="700" height="500"> 
 
-**Interpretation of the results**
+✍🏻 **Interpretation of the results**
 
-After the first differencing, the series became closer to stationarity. The PACF shows a significant negative correlation at lag 1, while the subsequent values decay quickly and remain within the confidence intervals.
+After the first differencing the series became closer to stationarity. The PACF shows a significant negative correlation at lag 1 while the subsequent values decay quickly and remain within the confidence intervals.
 
 ## Transforming the original series to achieve stationarity and applying additional transformations
 
 ### First Differencing
 
-After the first differencing, the ADF and KPSS tests confirmed that the series became stationary.
+After the first differencing the ADF and KPSS tests confirmed that the series became stationary.
 
 ### Logarithm Transformation
 
@@ -332,7 +332,7 @@ log_data <- log(msft_ts)
 plot(log_data, main = "Log-transformed Microsoft Close")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Log-transformed-Microsoft-Close.png" width="700" height="500"> 
 
@@ -342,21 +342,21 @@ Next, we have to plot the ACF
 acf(log_data, lag.max = 24, main = "ACF")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Log-transformed-ACF.png" width="700" height="500"> 
 
 **Interpretation of the results**
 
-The ACF remains very high at all lags, with no noticeable decay in autocorrelations. All values significantly exceed the confidence intervals. It is clear that the series is non-stationary.
+The ACF remains very high at all lags with no noticeable decay in autocorrelations. All values significantly exceed the confidence intervals. It is clear that the series is non-stationary.
 
-Next, we will plot the PACF
+Next, we have to plot the PACF
 
 ```r
 pacf(log_data, lag.max = 24, main = "PACF")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Log-transformed-PACF.png" width="700" height="500"> 
 
@@ -371,7 +371,7 @@ diff_season <- diff(msft_ts, lag = 252)
 plot(diff_season, main = "Seasonal Difference")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Seasonal-Difference.png" width="700" height="500"> 
 
@@ -381,14 +381,13 @@ Next, we have to plot the ACF
 acf(diff_season, lag.max = 24, main = "ACF")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Seasonal-Difference-ACF.png" width="700" height="500"> 
 
-**Interpretation of the results**
+✍🏻  **Interpretation of the results**
 
 The autocorrelations remain high and gradually decrease as the lag increases. All ACF values significantly exceed the confidence intervals at all lags. The ACF does not show rapid decay. Seasonal transformation did not eliminate the main issue of the series’ non-stationarity.
-
 
 Next, we will plot the PACF
 
@@ -396,11 +395,11 @@ Next, we will plot the PACF
 pacf(diff_season, lag.max = 24, main = "PACF")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Seasonal-Difference-PACF.png" width="700" height="500"> 
 
-**Interpretation of the results**
+✍🏻  **Interpretation of the results**
 
 The partial autocorrelation at lag 1 is around 1.0 and significantly exceeds the confidence bounds. The high values at the first lags confirm that seasonal differencing did not eliminate the non-stationarity.
 
@@ -413,7 +412,7 @@ box_ts <- BoxCox(msft_ts, lambda = 0)
 plot(box_ts, main = "Box–Cox transformation")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Box–Cox-transformation.png" width="700" height="500"> 
 
@@ -423,25 +422,25 @@ Next, we have to plot the ACF
 acf(box_ts, lag.max = 24, main = "ACF")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Box–Cox-transformation-ACF.png" width="700" height="500"> 
 
-**Interpretation of the results**
+✍🏻 **Interpretation of the results**
 
-The autocorrelations remain very high at all lags, showing no noticeable decrease as the lag increases. The Box–Cox transformation did not eliminate the non-stationarity, so ordinary differencing is required.
+The autocorrelations remain very high at all lags showing no noticeable decrease as the lag increases. The Box–Cox transformation did not eliminate the non-stationarity, so ordinary differencing is required.
 
-Next, we will plot the PACF
+Next, we have to plot the PACF
 
 ```r
 pacf(box_ts, lag.max = 24, main = "PACF")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Box–Cox-transformation-PACF.png" width="700" height="500"> 
 
-**Interpretation of the results**
+✍🏻 **Interpretation of the results**
 
 The partial autocorrelation at lag 1 equals 1.0 and exceeds the confidence bounds. All subsequent lags fall within the confidence intervals and are close to zero. The transformation did not affect the trend component of the time series.
 
