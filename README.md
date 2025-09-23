@@ -82,7 +82,7 @@ In order to ensure the correctness of data recognition the **Date** column shoul
 str(stock)
 ```
 
-**Result**
+📊 **Result**
 
 ```
 ## 'data.frame':    1511 obs. of  6 variables:
@@ -93,6 +93,8 @@ str(stock)
 ##  $ Close : num  40.7 40.3 41.5 41.5 41.4 ...
 ##  $ Volume: int  36865322 37487476 39223692 28809375 24753438 25723861 28022002 30276692 24244382 27343581 ...
 ```
+
+At this point we can proceed to the next stage of the analysis.
 
 ### Plotting a Time Series Graph
 
@@ -109,11 +111,13 @@ year_positions <- seq(2015, 2021, by = 1)
 axis(1, at = year_positions, labels = year_positions)
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Microsoft-Stock-Price-Over-Time.png" width="700" height="500"> 
 
 ### Basic Time Series Analysis
+
+In this section, we aim to answer the following questions:
 
 **a) Is there a trend in this series? If so, what kind?**
 
@@ -125,11 +129,11 @@ plot(decomp$time.series[, "trend"], type = "l",
      ylab = "Closing Price", xlab = "Date")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Trend-Microsoft-Stock-Price.png" width="700" height="500"> 
 
-When analyzing the time series for the period 2015–2021, it is evident that the closing price (`Close`) shows a clear long-term upward movement. This indicates the presence of an upward trend.
+After analyzing the time series for the period 2015–2021 we can observe that the closing price (`Close`) shows a clear long-term upward movement. This indicates the presence of an upward trend.
 
 **b) Are seasonal variations characteristic of this series?**
 
@@ -137,15 +141,15 @@ When analyzing the time series for the period 2015–2021, it is evident that th
 plot(decomp, main = "STL Microsoft Stock Price")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/STL-Microsoft-Stock-Price.png" width="700" height="500"> 
 
-At first glance, it may seem that seasonal variations are absent. However, applying the STL function allowed us to decompose the time series into separate components and reveal the presence of seasonality. Additionally, the graph highlights the following components: trend, seasonal component, and residual component.
+At first glance it may seem that seasonal variations are absent. However, applying the STL function allowed us to decompose the time series into separate components and reveal the presence of seasonality. Additionally, the graph highlights the following components: trend, seasonal component, and residual component.
 
 **c) Are there any cycles present in the series?**
 
-As seen from the graph, there are no strict cyclical patterns; if any fluctuations exist, they appear to be random.
+As seen from the graph there are no strict cyclical patterns; if any fluctuations exist, they appear to be random.
 
 **d) Does the variance change over time?**
 
@@ -161,20 +165,20 @@ plot(stock$Date, rolling_sd, type="l", col="purple", lwd=2,
      xlab="Date", ylab="SD (63 days)")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/Rolling-Standard-Deviation-of-Microsoft-Stock.png" width="700" height="500"> 
 
-The results show that the variance is not constant: there are periods of relative calm with low volatility, as well as periods of increased price fluctuations. This indicates the presence of heteroskedasticity, meaning that the series’ variance changes over time.
+The results show that the variance is not constant: there are periods of relative calm with low volatility as well as periods of increased price fluctuations. This indicates the presence of heteroskedasticity meaning that the series’ variance changes over time.
 
-**e) What can be said about the stationarity of this time series? Justify your answer**
+**e) What can be said about the stationarity of this time series?**
 
-By definition, a time series is stationary if its statistical properties do not change over time. That is, the mean is constant, the variance is constant, and the autocovariance depends only on the lag between observations.
+By definition, a time series is stationary if its statistical properties do not change over time. That is, the mean is constant, the variance is constant and the autocovariance depends only on the lag between observations.
 
-As seen from the graph, this time series is non-stationary because both the mean and variance change over time. To confirm this, we can perform the ADF and KPSS tests:
+As seen from the graph this time series is non-stationary because both the mean and variance change over time. To confirm this, we can perform the ADF and KPSS tests:
 
-- **ADF (Augmented Dickey-Fuller) test:** the null hypothesis assumes that the series has a unit root (i.e., is non-stationary).
-- **KPSS (Kwiatkowski–Phillips–Schmidt–Shin) test:** the null hypothesis assumes that the series is stationary.
+- **ADF (Augmented Dickey-Fuller) test:** the null hypothesis ($H_0$) assumes that the series has a unit root (i.e., is non-stationary).
+- **KPSS (Kwiatkowski–Phillips–Schmidt–Shin) test:** the null hypothesis ($H_0$) assumes that the series is stationary.
 
 ```r
 library(tseries)
@@ -183,7 +187,7 @@ print(adf.test(msft_ts))
 print(kpss.test(msft_ts))
 ```
 
-**Result**
+📊 **Result**
 
 ```
 ## 
@@ -200,7 +204,7 @@ print(kpss.test(msft_ts))
 ## KPSS Level = 17.308, Truncation lag parameter = 7, p-value = 0.01
 ```
 
-**Interpretation of the results**
+✍🏻 **Interpretation of the results**
 
 **ADF test:** This test showed a $\text{p-value} > 0.05$, so we fail to reject $H_0$. As a result, the series is considered non-stationary.
 
@@ -208,40 +212,40 @@ print(kpss.test(msft_ts))
 
 ## Plotting the Correlogram or Autocorrelation Function
 
-For this part of the work, we need to answer the following questions:
+For this part of the project we have to answer the following questions:
 
 - What conclusions can be drawn?
 - Do the assumptions from the previous section hold?
 
-Thus, the ACF analysis supports the conclusion that the series is non-stationary and exhibits long-term dependence.
+Let's build the ACF function
 
 ```r
 acf(msft_ts,lag.max = 24, main = "ACF")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/ACF.png" width="700" height="500"> 
 
-**Interpretation of the results**
+✍🏻  **Interpretation of the results**
 
-The values of the autocorrelation function decrease slowly and remain high even at larger lags. Moreover, the values go beyond the confidence intervals. This confirms that the series is non-stationary. Therefore, the assumption from the previous section is validated.
+The values of the autocorrelation function (ACF) decrease slowly and remain high even at larger lags. Moreover, the values go beyond the confidence intervals. This confirms that the series is non-stationary. Therefore, the assumption from the previous section is validated.
 
 ## Plotting the Partial Autocorrelation Function
 
-To analyze the dependency structure in the time series, we will construct a Partial Autocorrelation Function (PACF) plot and interpret the obtained results.
+To analyze the dependency structure in the time series, we will build a Partial Autocorrelation Function (PACF) plot and interpret the obtained results
 
 ```r
 pacf(msft_ts, lag.max = 24, main = "PACF")
 ```
 
-**Result**
+📊 **Result**
 
 <img src="https://github.com/MaksymYakushev/Microsoft-Stock-Time-Series-Analysis/blob/main/Data/PACF.png" width="700" height="500"> 
 
-**Interpretation of the results**
+✍🏻 **Interpretation of the results**
 
-The values of the Partial Autocorrelation Function indicate a first-order autoregressive process (AR(1)). Only the first lag is significant, which means that each observation depends solely on the previous value, not on more distant past values.
+The values of the Partial Autocorrelation Function (PACF) indicate a first-order autoregressive process (AR(1)). Only the first lag is significant, which means that each observation depends solely on the previous value, not on more distant past values.
 
 ## Building and analyzing the first-differenced series of the original data, plotting and correlogram
 
